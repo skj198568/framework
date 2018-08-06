@@ -437,14 +437,17 @@ class Query
                 return $pdo;
             }
             $result = $pdo->fetchColumn();
-            if ($force) {
-                $result += 0;
-            }
+            if ($result !== false) {
+                if ($force) {
+                    $result += 0;
+                }
 
-            if (isset($cache)) {
-                // 缓存数据
-                $this->cacheData($key, $result, $cache);
+                if (isset($cache)) {
+                    // 缓存数据
+                    $this->cacheData($key, $result, $cache);
+                }
             }
+           
         } else {
             // 清空查询条件
             $this->options = [];
